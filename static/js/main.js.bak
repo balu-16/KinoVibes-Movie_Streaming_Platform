@@ -1,0 +1,364 @@
+// Check if user is logged in, redirect to login page if not
+if (!Auth.isLoggedIn()) {
+    window.location.href = 'authentication.html';
+}
+
+// Global variable to store movies data
+let moviesData = {};
+
+// Load movies data when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded in main.js');
+    
+    // Load movies data
+    fetch('static/js/movies_db.json')
+        .then(response => {
+            console.log('Movies data response:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Movies data loaded:', data);
+            moviesData = data;
+            // Initialize the gallery with all movies
+            filterByCategory('all');
+        })
+        .catch(error => {
+            console.error('Error loading movies:', error);
+            // Show error message to user
+            const gallery = document.getElementById('imageGallery');
+            if (gallery) {
+                gallery.innerHTML = '<div class="col-12 text-center"><h3>Error loading movies. Please try again later.</h3></div>';
+            }
+        });
+
+    // Initialize search functionality
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("input", searchImages);
+        searchInput.addEventListener("keypress", function(e) {
+            if (e.key === 'Enter') {
+                searchImages();
+            }
+        });
+    }
+
+    // Initialize category filters - handle both onclick and data-category attributes
+    const categoryButtons = document.querySelectorAll('.dropdown-item');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Category button clicked');
+            
+            // Get the category from data-category attribute or from the text content
+            const category = this.getAttribute('data-category') || this.textContent.toLowerCase().trim();
+            console.log('Selected category:', category);
+            
+            // Call the filter function
+            filterByCategory(category);
+        });
+    });
+
+    // Set up user info in navbar
+    setupUserInfo();
+
+    // Search button click handler
+    const searchButton = document.querySelector('button[onclick="searchImages()"]');
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            searchImages();
+        });
+    }
+
+    // Set up sign out button
+    const signoutButton = document.querySelector('a[href="logout.php"]');
+    if (signoutButton) {
+        signoutButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Clear any stored user data
+            localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
+            // Redirect to logout
+            window.location.href = 'logout.php';
+        });
+    }
+});
+
+// Function to update movie gallery
+function updateGallery(category) {
+    console.log('Updating gallery with category:', category);
+    console.log('Available movies:', moviesData);
+    
+    const gallery = document.getElementById('imageGallery');
+    if (!gallery) {
+        console.error('Gallery element not found');
+        return;
+    }
+
+    gallery.innerHTML = ''; // Clear existing content
+
+    Object.entries(moviesData).forEach(([key, movie]) => {
+        console.log('Processing movie:', key, movie);
+        if (category === 'all' || movie.category === category) {
+            const movieCard = createMovieCard(key, movie);
+            gallery.appendChild(movieCard);
+        }
+    });
+}
+
+// Function to create a movie card
+function createMovieCard(movieKey, movie) {
+    const movieCard = document.createElement('div');
+    movieCard.className = 'col-md-3 col-sm-6 mb-4 image-card';
+    movieCard.setAttribute('data-name', movieKey);
+
+    movieCard.innerHTML = `
+        <div class="movie-card">
+            <img src="img/${movieKey}.jpg" alt="${movie.title}" class="img-fluid" onclick="streamMovie('${movieKey}')">
+            <div class="movie-info-overlay">
+                <h3>${movie.title}</h3>
+                <p>${movie.genres.join('/')} • ${movie.year}</p>
+                <div class="movie-rating">${movie.rating}</div>
+                <div class="movie-duration">${movie.duration}</div>
+                <div class="movie-buttons">
+                    <button class="btn btn-sm btn-light" onclick="streamMovie('${movieKey}')">
+                        <i class="fas fa-play"></i> Watch Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    return movieCard;
+}
+
+// Function to filter images based on search
+function searchImages() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    console.log('Searching for:', searchTerm);
+    
+    const gallery = document.getElementById('imageGallery');
+    if (!gallery) {
+        console.error('Gallery element not found');
+        return;
+    }
+
+    // Clear existing content
+    gallery.innerHTML = '';
+    
+    // If search term is empty, show all movies
+    if (!searchTerm.trim()) {
+        filterByCategory('all');
+        return;
+    }
+
+    // Filter and display movies based on search
+    let moviesFound = false;
+    
+    Object.entries(moviesData).forEach(([key, movie]) => {
+        if (
+            movie.title.toLowerCase().includes(searchTerm) ||
+            movie.genres.join(' ').toLowerCase().includes(searchTerm) ||
+            movie.year.toString().toLowerCase().includes(searchTerm) ||
+            movie.category.toLowerCase().includes(searchTerm)
+        ) {
+            moviesFound = true;
+            const movieCard = document.createElement('div');
+            movieCard.className = 'col-md-3 col-sm-6 mb-4 image-card';
+            movieCard.setAttribute('data-name', key);
+
+            movieCard.innerHTML = `
+                <div class="movie-card">
+                    <img src="img/${key}.jpg" alt="${movie.title}" class="img-fluid" onclick="streamMovie('${key}')">
+                    <div class="movie-info-overlay">
+                        <h3>${movie.title}</h3>
+                        <p>${movie.genres.join('/')} • ${movie.year}</p>
+                        <div class="movie-rating">${movie.rating}</div>
+                        <div class="movie-duration">${movie.duration}</div>
+                        <div class="movie-buttons">
+                            <button class="btn btn-sm btn-light" onclick="streamMovie('${key}')">
+                                <i class="fas fa-play"></i> Watch Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            gallery.appendChild(movieCard);
+        }
+    });
+
+    // If no results found, show a message
+    if (!moviesFound) {
+        gallery.innerHTML = '<div class="col-12 text-center"><h3>No movies found matching your search.</h3></div>';
+    }
+}
+
+// Function to filter by category
+function filterByCategory(category) {
+    console.log('Filtering by category:', category);
+    const gallery = document.getElementById('imageGallery');
+    if (!gallery) {
+        console.error('Gallery element not found');
+        return;
+    }
+
+    // Clear existing content
+    gallery.innerHTML = '';
+    
+    // Log the current state of moviesData
+    console.log('Current movies data:', moviesData);
+    
+    // Check if moviesData is empty or undefined
+    if (!moviesData || Object.keys(moviesData).length === 0) {
+        console.error('Movies data is empty or not loaded yet');
+        gallery.innerHTML = '<div class="col-12 text-center"><h3>Error: Movies data not loaded. Please refresh the page.</h3></div>';
+        return;
+    }
+
+    // Filter and display movies
+    let moviesFound = false;
+    
+    Object.entries(moviesData).forEach(([key, movie]) => {
+        console.log('Checking movie:', key, 'with category:', movie.category, 'against:', category);
+        
+        if (category === 'all' || movie.category.toLowerCase() === category.toLowerCase()) {
+            moviesFound = true;
+            const movieCard = document.createElement('div');
+            movieCard.className = 'col-md-3 col-sm-6 mb-4 image-card';
+            movieCard.setAttribute('data-name', key);
+
+            movieCard.innerHTML = `
+                <div class="movie-card">
+                    <img src="img/${key}.jpg" alt="${movie.title}" class="img-fluid" onclick="streamMovie('${key}')">
+                    <div class="movie-info-overlay">
+                        <h3>${movie.title}</h3>
+                        <p>${movie.genres.join('/')} • ${movie.year}</p>
+                        <div class="movie-rating">${movie.rating}</div>
+                        <div class="movie-duration">${movie.duration}</div>
+                        <div class="movie-buttons">
+                            <button class="btn btn-sm btn-light" onclick="streamMovie('${key}')">
+                                <i class="fas fa-play"></i> Watch Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            gallery.appendChild(movieCard);
+        }
+    });
+
+    // Show message if no movies found
+    if (!moviesFound) {
+        gallery.innerHTML = '<div class="col-12 text-center"><h3>No movies found in this category.</h3></div>';
+    }
+}
+
+// Function to stream movie
+function streamMovie(movieKey) {
+    const movie = moviesData[movieKey.toLowerCase()];
+    if (!movie) {
+        console.error('Movie not found:', movieKey);
+        return;
+    }
+
+    const optionsModal = new bootstrap.Modal(document.getElementById('optionsModal'));
+    const modalTitle = document.getElementById('optionsModalLabel');
+    const watchButton = document.getElementById('watchButton');
+    const downloadButton = document.getElementById('downloadButton');
+
+    modalTitle.textContent = movie.title;
+    
+    watchButton.onclick = function() {
+        if (movie.videoUrl) {
+            window.open(movie.videoUrl, '_blank');
+        } else {
+            alert('Video not available for this movie.');
+        }
+        optionsModal.hide();
+    };
+
+    downloadButton.onclick = function() {
+        if (movie.videoUrl) {
+            window.open(movie.videoUrl, '_blank');
+        } else {
+            window.open('https://t.me/kinovibes_movies', '_blank');
+        }
+        optionsModal.hide();
+    };
+
+    optionsModal.show();
+}
+
+// Function to show options when an image is clicked
+function showOptions(movieKey) {
+    const movie = moviesData[movieKey.toLowerCase()];
+    if (!movie) {
+        console.error('Movie not found:', movieKey);
+        return;
+    }
+
+    const optionsModal = new bootstrap.Modal(document.getElementById('optionsModal'));
+    const modalTitle = document.getElementById('optionsModalLabel');
+    modalTitle.textContent = movie.title;
+
+    document.getElementById('watchButton').onclick = function() {
+        if (movie.videoUrl) {
+            window.open(movie.videoUrl, '_blank');
+        } else {
+            alert('Video not available for this movie.');
+        }
+        optionsModal.hide();
+    };
+
+    document.getElementById('downloadButton').onclick = function() {
+        if (movie.videoUrl) {
+            window.open(movie.videoUrl, '_blank');
+        } else {
+            window.open('https://t.me/kinovibes_movies', '_blank');
+        }
+        optionsModal.hide();
+    };
+
+    optionsModal.show();
+}
+
+// Function to set up user info in the navbar
+function setupUserInfo() {
+    const userDisplay = document.getElementById('currentUser');
+
+    if (userDisplay) {
+        // Get the user's display name
+        userDisplay.textContent = getUserDisplayName();
+    }
+}
+
+// Add this function to initialize carousels
+function initializeCarousels() {
+    const carousels = document.querySelectorAll('.movie-carousel');
+
+    carousels.forEach(carousel => {
+        const movieRow = carousel.querySelector('.movie-row');
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+        const category = movieRow.dataset.category;
+
+        // Filter and add movies for this category
+        const categoryMovies = Object.entries(moviesData)
+            .filter(([_, movie]) => movie.category === category);
+
+        categoryMovies.forEach(([key, movie]) => {
+            const movieCard = createMovieCard(key, movie);
+            movieRow.appendChild(movieCard);
+        });
+
+        // Scroll controls
+        prevBtn.addEventListener('click', () => {
+            movieRow.scrollBy({ left: -220, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            movieRow.scrollBy({ left: 220, behavior: 'smooth' });
+        });
+    });
+}

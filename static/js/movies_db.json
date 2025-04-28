@@ -1,0 +1,218 @@
+{
+    "devara": {
+        "title": "Devara",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2024",
+        "rating": "⭐ 8.5/10",
+        "duration": "2h 45min",
+        "videoUrl": "https://drive.google.com/file/d/1uwImvHrSred8jJVS7XvTGzv20-5DuF6l/preview"
+    }, 
+    "johnwick1": {
+        "title": "John Wick",
+        "category": "action",
+        "genres": ["Action", "Thriller"],
+        "year": "2014",
+        "rating": "⭐ 7.4/10",
+        "duration": "1h 41min",
+        "videoUrl": "https://drive.google.com/file/d/1Es88WxQ_kIIrNYqFoXF1mSgCNudPiKr2/preview"
+    },
+    "johnwick2": {
+        "title": "John Wick: Chapter 2",
+        "category": "action",
+        "genres": ["Action", "Thriller"],
+        "year": "2017",
+        "rating": "⭐ 7.5/10",
+        "duration": "2h 2min",
+        "videoUrl": "https://drive.google.com/file/d/1vDNLxvT15kJ76_JLT-_fXaslZMZrE_B-/preview"
+    },
+    "johnwick3": {
+        "title": "John Wick: Chapter 3",
+        "category": "action",
+        "genres": ["Action", "Thriller"],
+        "year": "2019",
+        "rating": "⭐ 7.4/10",
+        "duration": "2h 11min",
+        "videoUrl": "https://drive.google.com/file/d/12rfOpXkBJdmdDAj2-oZls0bdZ6GYLr7M/preview"
+    },
+    "johnwick4": {
+        "title": "John Wick: Chapter 4",
+        "category": "action",
+        "genres": ["Action", "Thriller"],
+        "year": "2023",
+        "rating": "⭐ 7.8/10",
+        "duration": "2h 49min",
+        "videoUrl": "https://drive.google.com/file/d/your_johnwick4_link/view"
+    },
+    "ironman1": {
+        "title": "Iron Man",
+        "category": "marvel",
+        "genres": ["Action", "Sci-Fi"],
+        "year": "2008",
+        "rating": "⭐ 7.9/10",
+        "duration": "2h 6min",
+        "videoUrl": "https://drive.google.com/file/d/your_ironman1_link/view"
+    },
+    "ironman2": {
+        "title": "Iron Man 2",
+        "category": "marvel",
+        "genres": ["Action", "Sci-Fi"],
+        "year": "2010",
+        "rating": "⭐ 7.0/10",
+        "duration": "2h 4min",
+        "videoUrl": "https://drive.google.com/file/d/your_ironman2_link/view"
+    },
+    "ironman3": {
+        "title": "Iron Man 3",
+        "category": "marvel",
+        "genres": ["Action", "Sci-Fi"],
+        "year": "2013",
+        "rating": "⭐ 7.1/10",
+        "duration": "2h 10min",
+        "videoUrl": "https://drive.google.com/file/d/your_ironman3_link/view"
+    },
+    "avengersendgame": {
+        "title": "Avengers: Endgame",
+        "category": "marvel",
+        "genres": ["Action", "Sci-Fi"],
+        "year": "2019",
+        "rating": "⭐ 8.4/10",
+        "duration": "3h 1min",
+        "videoUrl": "https://drive.google.com/file/d/your_avengersendgame_link/view"
+    },
+    "thedarkknight": {
+        "title": "The Dark Knight",
+        "category": "dc",
+        "genres": ["Action", "Crime"],
+        "year": "2008",
+        "rating": "⭐ 9.0/10",
+        "duration": "2h 32min",
+        "videoUrl": "https://drive.google.com/file/d/your_darkknight_link/view"
+    },
+    "manofsteel": {
+        "title": "Man of Steel",
+        "category": "dc",
+        "genres": ["Action", "Sci-Fi"],
+        "year": "2013",
+        "rating": "⭐ 7.1/10",
+        "duration": "2h 23min",
+        "videoUrl": "https://drive.google.com/file/d/your_manofsteel_link/view"
+    },
+    "aquaman": {
+        "title": "Aquaman",
+        "category": "dc",
+        "genres": ["Action", "Adventure"],
+        "year": "2018",
+        "rating": "⭐ 6.8/10",
+        "duration": "2h 23min",
+        "videoUrl": "https://drive.google.com/file/d/your_aquaman_link/view"
+    },
+    "blackadam": {
+        "title": "Black Adam",
+        "category": "dc",
+        "genres": ["Action", "Fantasy"],
+        "year": "2022",
+        "rating": "⭐ 6.3/10",
+        "duration": "2h 5min",
+        "videoUrl": "https://drive.google.com/file/d/your_blackadam_link/view"
+    },
+    "kgf1": {
+        "title": "KGF Chapter 1",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2018",
+        "rating": "⭐ 8.2/10",
+        "duration": "2h 36min",
+        "videoUrl": "https://drive.google.com/file/d/1l_K61PyvraN4XUs2j3OFINTH_aVBYHmP/preview"
+    },
+    "kgf2": {
+        "title": "KGF Chapter 2",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2022",
+        "rating": "⭐ 8.3/10",
+        "duration": "2h 48min",
+        "videoUrl": "https://drive.google.com/file/d/1vFe5ZuT3czhVHANtl88YBRV0aL20isAD/preview"
+    },
+    "pushpa": {
+        "title": "Pushpa: The Rise",
+        "category": "crime",
+        "genres": ["Action", "Crime"],
+        "year": "2021",
+        "rating": "⭐ 7.6/10",
+        "duration": "2h 59min",
+        "videoUrl": "https://drive.google.com/file/d/1NOVlYJlQA5WVEk-nickulRIFecHzjq4Q/preview"
+    },
+    "pushpa2": {
+        "title": "Pushpa 2: The Rule",
+        "category": "crime",
+        "genres": ["Action", "Crime"],
+        "year": "2024",
+        "rating": "⭐ Coming Soon",
+        "duration": "TBA",
+        "videoUrl": "https://drive.google.com/file/d/your_pushpa2_link/view"
+    },
+    "salaar": {
+        "title": "Salaar",
+        "category": "action",
+        "genres": ["Action", "Thriller"],
+        "year": "2023",
+        "rating": "⭐ 7.2/10",
+        "duration": "2h 55min",
+        "videoUrl": "https://drive.google.com/file/d/1m9_na1rlWYuzl3uki0sMJ-hks3Lr3LqA/preview"
+    },
+    "gunturkaaram": {
+        "title": "Guntur Kaaram",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2024",
+        "rating": "⭐ 6.1/10",
+        "duration": "2h 43min",
+        "videoUrl": "https://drive.google.com/file/d/1cC8I5gOcKC6PjkBXsLKBo8enSn0JHxcm/preview"
+    },
+    "brahmastra": {
+        "title": "Brahmastra",
+        "category": "fantasy",
+        "genres": ["Fantasy", "Adventure"],
+        "year": "2022",
+        "rating": "⭐ 5.6/10",
+        "duration": "2h 47min",
+        "videoUrl": "https://drive.google.com/file/d/your_brahmastra_link/view"
+    },
+    "leo": {
+        "title": "Leo",
+        "category": "action",
+        "genres": ["Action", "Crime"],
+        "year": "2023",
+        "rating": "⭐ 7.1/10",
+        "duration": "2h 39min",
+        "videoUrl": "https://drive.google.com/file/d/1F0d3AjRDnYH9RxtE--XBGFlDdUC4GAYI/preview"
+    },
+    "jailer": {
+        "title": "Jailer",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2023",
+        "rating": "⭐ 7.0/10",
+        "duration": "2h 48min",
+        "videoUrl": "https://drive.google.com/file/d/1qh3kqiwHEhCKLhKrb06WpuGs5Lpygvnm/preview"
+    },
+    "mad": {
+        "title": "Mad",
+        "category": "comedy",
+        "genres": ["Comedy", "Drama"],
+        "year": "2023",
+        "rating": "⭐ 7.3/10",
+        "duration": "2h 28min",
+        "videoUrl": "https://drive.google.com/file/d/1jbwM1nYW1kUwc5Es3q2vlcgxHMbcOO3F/preview"
+    },
+    "daakumaharaj": {
+        "title": "Daaku Maharaj",
+        "category": "action",
+        "genres": ["Action", "Drama"],
+        "year": "2024",
+        "rating": "⭐ 7.2/10",
+        "duration": "TBA",
+        "videoUrl": "https://drive.google.com/file/d/1KjY27UN0sjFTVR-cuWTHESQWjugf-2WO/preview"
+    }
+}
