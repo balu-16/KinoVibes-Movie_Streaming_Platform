@@ -74,3 +74,9 @@ Before you begin, ensure you have met the following requirements:
 
 Contributions are welcome! 🙌 Feel free to open issues, submit pull requests, or suggest new features.  
 Let's build a better entertainment platform together! 🚀
+
+---
+
+## License
+This project is licensed as **proprietary and confidential**.  
+**You may not reuse, modify, or redistribute any part of this code.**
